@@ -8,7 +8,7 @@ const articleRouter = require("./routes/articles");
 const methodOverride = require("method-override");
 const Article = require("./models/article");
 const app = express();
-const port = process.env.PORT || 5001;
+const PORT = process.env.PORT || 5001;
 
 mongoose.connect(process.env.DATABASE_URL, {
     useNewUrlParser: true, 
@@ -24,10 +24,9 @@ app.use(methodOverride("_method"))
 
 app.get("/", async (req, res) => {
     const articles = await Article.find().sort({ createdAt: "desc"})
-    res.render("wijnen/index", { articles: articles});
+    res.render("kamers/index", { articles: articles});
 })
 
-app.use("/wijnen", articleRouter);
+app.use("/kamers", articleRouter);
 
-app.listen(`${port}`);
-console.log(`Listening on port ${port}`);
+app.listen(PORT, () => console.log(`Listening on port ${PORT}`));
