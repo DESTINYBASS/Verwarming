@@ -8,6 +8,11 @@ const database = new mongoose.Schema({
     },
     temperature: {
         type: Number
+    },
+    slug: {
+        type: String,
+        unique: true,
+        required: true
     }
 })
 
