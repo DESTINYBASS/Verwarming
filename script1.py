@@ -1,8 +1,14 @@
-def Test():
-    test = "something"
-    if(test):
-        print(test)
-    else:
-        print("not test")
+import random
 
-Test()
+def randomNumber():
+    i = 0
+    emptyArray = []
+    times = []
+    while i < 100:
+        i = i+1
+        times.append(i)
+        randomInt = random.randint(0, 10)
+        emptyArray.append(randomInt)
+    return emptyArray
+
+print(randomNumber())
