@@ -13,6 +13,12 @@ const app = express();
 const PORT = process.env.PORT || 5001;
 const router = express.Router()
 
+mongoose.connect(process.env.DATABASE_URL, {
+    useNewUrlParser: true, 
+    useUnifiedTopology: true,
+    useCreateIndex: true
+});
+
 function getPython(){
     var dataToSend;
     const python = spawn('python', ['script1.py']);
@@ -22,7 +28,7 @@ function getPython(){
     });
 
     python.on('close', (code) => {
-        router.put("/:id", async (req, res, next) => {
+        router.put("/", async (req, res, next) => {
             dataToSend = dataToSend.split(",");
             let emptyArray = []
             dataToSend.forEach(el => {
@@ -50,12 +56,6 @@ function getPython(){
         })
     });
 }
-
-mongoose.connect(process.env.DATABASE_URL, {
-    useNewUrlParser: true, 
-    useUnifiedTopology: true,
-    useCreateIndex: true
-});
 
 app.set("view engine", "ejs");
 
