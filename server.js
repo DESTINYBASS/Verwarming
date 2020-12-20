@@ -8,8 +8,10 @@ const mongoose = require("mongoose");
 const articleRouter = require("./routes/articles");
 const methodOverride = require("method-override");
 const Article = require("./models/article");
+const article = require("./models/article");
 const app = express();
 const PORT = process.env.PORT || 5001;
+const router = express.Router()
 
 function getPython(){
     var dataToSend;
@@ -20,10 +22,34 @@ function getPython(){
     });
 
     python.on('close', (code) => {
-        console.log(dataToSend);
+        router.put("/:id", async (req, res, next) => {
+            dataToSend = dataToSend.split(",");
+            let emptyArray = []
+            dataToSend.forEach(el => {
+                try{
+                    let newInt = parseInt(el);
+                    if(!Number.isNaN(newInt)){
+                        article.pastTemp.push(newInt);
+                    }
+                } catch (e){
+                    console.log(e);
+                }
+            });
+            req.article = await Article.findById(req.params.id);
+            return async (req, res) => {
+                let article = req.article
+                article.pastTemp = emptyArray
+                try{
+                    article = await article.save()
+                    res.redirect("/")
+                } catch(e){
+                    res.render("/kamers", { article: article })
+                    console.log(e)
+                }
+            }
+        })
     });
 }
-
 
 mongoose.connect(process.env.DATABASE_URL, {
     useNewUrlParser: true, 
@@ -38,8 +64,8 @@ app.use(express.urlencoded({ extended: false }));
 app.use(methodOverride("_method"));
 
 app.get("/", async (req, res) => {
-    getPython();
     const articles = await Article.find().sort({ createdAt: "desc"});
+    getPython();
     res.render("kamers/index", { articles: articles});
 })
 

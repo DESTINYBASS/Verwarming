@@ -14,6 +14,7 @@
             <br><br><input type="text" id="myInput" onkeyup="Search()" placeholder="Zoeken..." class="form-control">
             <ul id="myUL">
                 <% articles.forEach(article => { %>
+                    <%= console.log(article.pastTemp) %>
                     <li class="li">
                         <div class="card mb-2 mt-4" id="wijn">
                             <a href="kamers/<%= article.slug %>" class="ml-2 mt-2">
