@@ -13,9 +13,9 @@ router.get("/edit/:id", async (req, res) =>{
 })
 
 router.get("/:slug", async (req, res) => {
+    getPython();
     const article = await Article.findOne({ slug: req.params.slug})
     if(article == null) res.redirect("/")
-    getPython();
     res.render("kamers/show", { article: article })
 })
 
@@ -47,32 +47,28 @@ function getPython(){
         dataToSend = data.toString();
     });
 
-    python.on('close', (code) => {
-        dataToSend = dataToSend.split(",");
-        let emptyArray = []
-        dataToSend.forEach(el => {
-            try{
-                let newInt = parseInt(el);
-                if(!Number.isNaN(newInt)){
-                    emptyArray.push(newInt);
-                }
-            } catch (e){
-                console.log(e);
-            }
-        });
-    })
+    python.on('close', async (code) => {
+        console.log(dataToSend)
+        let newInt = parseInt(dataToSend);
+        router.put("/:id", async (req, res, next) => {
+            req.article = await Article.findById(req.params.id);
+            Article = await Article.update(req.params.id, { $push: { pastTemp: newInt}});
+            console.log("passed here");
+            next();
+        }, saveArticleAndRedirect("show"));
+    });
 }
 
 function saveArticleAndRedirect(path){
     return async (req, res) => {
-        let article = req.article
-        article.title = req.body.title
-        article.pastTemp = req.body.emptyArray
+        let article = req.article;
+        article.title = req.body.title;
+        article.pastTemp = req.body.pastTemp
         try {
-            article = await article.save()
-            res.redirect("/")
+            article = await article.save();
+            res.redirect("/");
         } catch (e) {
-            res.render(`kamers/${path}`, { article: article })
+            res.render(`kamers/${path}`, { article: article });
             console.log(e);
         }
     }

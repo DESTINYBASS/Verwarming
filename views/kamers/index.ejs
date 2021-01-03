@@ -6,6 +6,7 @@
         <title>Verwarming</title>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/js/all.min.js" integrity="sha512-YSdqvJoZr83hj76AIVdOcvLWYMWzy6sJyIMic2aQz5kh2bPTd9dzY3NtdeEAzPp/PhgZqr4aJObB3ym/vsItMg==" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="style.css">
     </head>
     <body onload="checkList()">
         <div class="container mt-3">
@@ -15,49 +16,17 @@
             <ul id="myUL">
                 <% articles.forEach(article => { %>
                     <li class="li">
-                        <div class="card mb-2 mt-4" id="wijn">
+                        <div class="card mb-2 mt-4" id="kamer">
                             <a href="kamers/<%= article.slug %>" class="ml-2 mt-2">
-                                <h4 class="card-title d-inline" id="title"><%= article.title %></h4>
-                                <form action="/kamers/<%= article.id %>?_method=DELETE" method="POST" class="d-inline " id="delete">
-                                    <button type="submit" class="btn btn-danger" id="delButton"><i class="fas fa-trash-alt"></i></button>
+                                <h4 class="card-title d-inline title"><%= article.title %></h4>
+                                <form action="/kamers/<%= article.id %>?_method=DELETE" method="POST" class="d-inline delete">
+                                    <button type="submit" class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
                                 </form>
                             </a>
                         </div>
                         </li>
                 <% }) %>
             </ul>
-            <style>
-                ul{
-                    padding: 0;
-                    margin: 0;
-                    list-style: none;
-                }
-                a{
-                    color: black;
-                }
-                a:hover{
-                    color: black;
-                    text-decoration: none;
-                }
-                select{
-                    border: 0.5px solid grey;
-                    border-radius: 10px;
-                    font-size: 18px;
-                    padding: 5px 5px 5px 5px;
-                }
-                label{
-                    margin: 0;
-                    padding: 0;
-                }
-                select:hover{
-                    cursor: pointer;
-                }
-                #delete{
-                    position: absolute;
-                    right: 15px;
-                    margin-top: 5px;
-                }
-            </style>
                 <script>
                     function Search(dateOne, dateTwo) {
                         // Declare variables

@@ -1,0 +1,46 @@
+#kamer{
+    height: 55px;
+    position: relative;
+}
+
+.title{
+    position: absolute;
+    top: 50%;
+    transform: translate(5%,-50%);
+}
+
+.delete{
+    position: absolute;
+    right: 15px;
+} 
+
+ul{
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+a{
+    color: black;
+}
+
+a:hover{
+    color: black;
+    text-decoration: none;
+}
+
+select{
+    border: 0.5px solid grey;
+    border-radius: 10px;
+    font-size: 18px;
+    padding: 5px 5px 5px 5px;
+}
+
+label{
+    margin: 0;
+    padding: 0;
+}
+
+select:hover{
+    cursor: pointer;
+}

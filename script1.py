@@ -2,16 +2,9 @@ import random
 import matplotlib.pyplot as grafiek
 
 def randomNumber():
-    i = 0
-    emptyArray = []
-    times = []
-    while i < 100:
-        i = i+1
-        times.append(i)
-        randomInt = random.randint(0, 10)
-        emptyArray.append(randomInt)
+    randomInt = random.randint(0, 10)
+    return randomInt
     # staafgrafiek("random numbers", times, emptyArray, "number", "amount")
-    return emptyArray
 
 def staafgrafiek(titel, labels, getallen1, xlabel, ylabel):
     grafiek.clf()
