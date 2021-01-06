@@ -15,7 +15,7 @@ const database = new mongoose.Schema({
         required: true
     },
     pastTemp: {
-        type: Array
+        type: Number
     }
 })
 

@@ -17,7 +17,7 @@
                 <% articles.forEach(article => { %>
                     <li class="li">
                         <div class="card mb-2 mt-4" id="kamer">
-                            <a href="kamers/<%= article.slug %>" class="ml-2 mt-2">
+                            <a href="kamers/<%= article.slug %>" class="ml-2 mt-2 link">
                                 <h4 class="card-title d-inline title"><%= article.title %></h4>
                                 <form action="/kamers/<%= article.id %>?_method=DELETE" method="POST" class="d-inline delete">
                                     <button type="submit" class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>

@@ -13,9 +13,12 @@ router.get("/edit/:id", async (req, res) =>{
 })
 
 router.get("/:slug", async (req, res) => {
-    getPython();
     const article = await Article.findOne({ slug: req.params.slug})
     if(article == null) res.redirect("/")
+    getPython(article, req, res);
+    // router.put("/:slug", async (req, res, next) => {
+    //     next();
+    // }, saveArticleAndRedirect("show"));
     res.render("kamers/show", { article: article })
 })
 
@@ -34,28 +37,18 @@ router.delete("/:id", async (req, res) => {
     res.redirect("/")
 })
 
-router.put("/:id", async (req, res, next) => {
-    req.article = await Article.findById(req.params.id);
-    next();
-}, saveArticleAndRedirect("show"))
-
-function getPython(){
+function getPython(article, req, res){
     var dataToSend;
     const python = spawn('python', ['script1.py']);
-
+    
     python.stdout.on('data', function (data) {
         dataToSend = data.toString();
     });
-
+    
     python.on('close', async (code) => {
         console.log(dataToSend)
         let newInt = parseInt(dataToSend);
-        router.put("/:id", async (req, res, next) => {
-            req.article = await Article.findById(req.params.id);
-            Article = await Article.update(req.params.id, { $push: { pastTemp: newInt}});
-            console.log("passed here");
-            next();
-        }, saveArticleAndRedirect("show"));
+        article = await article.updateOne(article, { $push: { pastTemp: newInt}});
     });
 }
 
